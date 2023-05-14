@@ -15,6 +15,7 @@ var locationCmd = &cobra.Command{
 	Short: "Manage your location",
 	Long: `Command to manage your location, for example:
   - List all available locations
+  - Search location by name
   - Set your location
   - Get your currently selected location`,
 	Run: func(cmd *cobra.Command, args []string) {
