@@ -24,7 +24,7 @@ var searchCmd = &cobra.Command{
 				log.Fatalf("Error: %v\n", err.Error())
 			}
 
-			stdout.PrintTable(locations)
+			stdout.PrintLocationTable(locations)
 		}
 	},
 }

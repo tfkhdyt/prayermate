@@ -6,36 +6,11 @@ import (
 	"fmt"
 	"time"
 
+	"codeberg.org/tfkhdyt/prayermate/entity"
 	"codeberg.org/tfkhdyt/prayermate/pkg/fetch"
 )
 
-type ShowPrayerTimesDto struct {
-	Status bool `json:"status"`
-	Data   struct {
-		ID         string `json:"id"`
-		Location   string `json:"lokasi"`
-		Province   string `json:"daerah"`
-		Coordinate struct {
-			Latitude     float64 `json:"lat"`
-			Longitude    float64 `json:"lon"`
-			LatitudeStr  string  `json:"lintang"`
-			LongitudeStr string  `json:"bujur"`
-		} `json:"koordinat"`
-		Schedule struct {
-			Date   string `json:"tanggal"`
-			Imsak  string `json:"imsak"`
-			Subuh  string `json:"subuh"`
-			Terbit string `json:"terbit"`
-			Dhuha  string `json:"dhuha"`
-			Dzuhur string `json:"dzuhur"`
-			Ashar  string `json:"ashar"`
-			Magrib string `json:"magrib"`
-			Isya   string `json:"isya"`
-		} `json:"jadwal"`
-	} `json:"data"`
-}
-
-func ShowPrayerTimes(locationID string) (*ShowPrayerTimesDto, error) {
+func ShowPrayerTimes(locationID string) (*entity.PrayerTimes, error) {
 	year, month, day := time.Now().Date()
 	url := fmt.Sprintf("https://api.myquran.com/v1/sholat/jadwal/%s/%d/%d/%d", locationID, year, int(month), day)
 
@@ -44,7 +19,7 @@ func ShowPrayerTimes(locationID string) (*ShowPrayerTimesDto, error) {
 		return nil, err
 	}
 
-	var result ShowPrayerTimesDto
+	var result entity.PrayerTimes
 	if err := json.Unmarshal(body, &result); err != nil {
 		return nil, err
 	}

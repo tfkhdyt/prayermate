@@ -8,6 +8,7 @@ import (
 	"log"
 
 	"codeberg.org/tfkhdyt/prayermate/pkg/api"
+	"codeberg.org/tfkhdyt/prayermate/pkg/stdout"
 	"github.com/spf13/cobra"
 )
 
@@ -24,7 +25,16 @@ var showCmd = &cobra.Command{
 				log.Fatalf("Error: %v\n", err.Error())
 			}
 
-			fmt.Printf("%+v", prayerTimes)
+			fmt.Printf(`ID: %s
+Location: %s
+Province: %s
+Coordinate:
+  - Latitude: %s
+  - Longitude: %s
+Date: %s
+`, prayerTimes.Data.ID, prayerTimes.Data.Location, prayerTimes.Data.Province, prayerTimes.Data.Coordinate.LatitudeStr, prayerTimes.Data.Coordinate.LongitudeStr, prayerTimes.Data.Schedule.Date)
+
+			stdout.PrintScheduleTable(prayerTimes)
 		}
 	},
 }
