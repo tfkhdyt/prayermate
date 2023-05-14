@@ -13,9 +13,10 @@ import (
 
 // searchCmd represents the search command
 var searchCmd = &cobra.Command{
-	Use:   "search",
+	Use:   "search [location name...]",
 	Short: "Search location by name",
 	Long:  `Search location by name`,
+	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, name := range args {
 			locations, err := api.SearchLocation(name)
