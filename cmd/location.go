@@ -4,8 +4,6 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -18,9 +16,9 @@ var locationCmd = &cobra.Command{
   - Search location by name
   - Set your location
   - Get your currently selected location`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("location called")
-	},
+	// Run: func(cmd *cobra.Command, args []string) {
+	// 	fmt.Println("location called")
+	// },
 }
 
 func init() {
