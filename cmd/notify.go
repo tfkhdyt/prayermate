@@ -8,9 +8,8 @@ import (
 	"log"
 	"time"
 
-	"codeberg.org/tfkhdyt/prayermate/entity"
+	"codeberg.org/tfkhdyt/prayermate/pkg/alarm"
 	"codeberg.org/tfkhdyt/prayermate/pkg/api"
-	"github.com/gen2brain/beeep"
 	"github.com/spf13/cobra"
 )
 
@@ -27,9 +26,13 @@ var notifyCmd = &cobra.Command{
 			log.Fatalf("Error: %v\n", err.Error())
 		}
 
+		fmt.Println("PrayerMate notify is running...")
+		fmt.Println("Selected location:", prayerTimes.Data.Location)
+
 		for {
-			checkTime(prayerTimes)
-			time.Sleep(1 * time.Second)
+			alarm.CheckTime(prayerTimes)
+
+			time.Sleep(30 * time.Second)
 		}
 	},
 }
@@ -47,34 +50,4 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// notifyCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
-
-func checkTime(prayerTimes *entity.PrayerTimes) {
-	hourNow, minuteNow := time.Now().Hour(), time.Now().Minute()
-
-	// subuh
-	var hourSubuh, minuteSubuh int
-	if _, err := fmt.Sscanf(prayerTimes.Data.Schedule.Subuh, "%d:%d", &hourSubuh, &minuteSubuh); err != nil {
-		log.Fatalln("Error:", err.Error())
-	}
-
-	if hourNow == hourSubuh && minuteNow == minuteSubuh {
-		notify("Subuh", prayerTimes.Data.Schedule.Subuh)
-	}
-
-	// dzuhur
-	var hourDzuhur, minuteDzuhur int
-	if _, err := fmt.Sscanf(prayerTimes.Data.Schedule.Dzuhur, "%d:%d", &hourDzuhur, &minuteDzuhur); err != nil {
-		log.Fatalln("Error:", err.Error())
-	}
-
-	if hourNow == hourDzuhur && minuteNow == minuteDzuhur {
-		notify("Dzuhur", prayerTimes.Data.Schedule.Dzuhur)
-	}
-}
-
-func notify(prayerType string, time string) {
-	if err := beeep.Notify(prayerType+"Prayer", fmt.Sprintf("%s is the time of Magrib Prayer", time), ""); err != nil {
-		log.Fatalln("Error:", err.Error())
-	}
 }

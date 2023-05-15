@@ -1,6 +1,7 @@
 package stdout
 
 import (
+	"fmt"
 	"os"
 
 	"codeberg.org/tfkhdyt/prayermate/entity"
@@ -30,4 +31,5 @@ func PrintScheduleTable(prayerTimes *entity.PrayerTimes) {
 	table.Append([]string{"Isya", prayerTimes.Data.Schedule.Isya})
 
 	table.Render() // Send output
+	fmt.Println()
 }
