@@ -28,7 +28,7 @@ func SearchLocation(name string) ([]entity.Location, error) {
 	}
 
 	if !result.Status {
-		return nil, errors.New("Failed to search location")
+		return nil, errors.New("Location is not found")
 	}
 
 	return result.Data, nil
