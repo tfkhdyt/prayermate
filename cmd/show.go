@@ -54,7 +54,7 @@ Date: %s
 Coordinate:
   - Latitude: %s
   - Longitude: %s
-`, prayerTimes.Data.ID, prayerTimes.Data.Location, prayerTimes.Data.Province, prayerTimes.Data.Coordinate.LatitudeStr, prayerTimes.Data.Coordinate.LongitudeStr, prayerTimes.Data.Schedule.Date)
+`, prayerTimes.Data.ID, prayerTimes.Data.Location, prayerTimes.Data.Province, prayerTimes.Data.Schedule.Date, prayerTimes.Data.Coordinate.LatitudeStr, prayerTimes.Data.Coordinate.LongitudeStr)
 
 	stdout.PrintScheduleTable(prayerTimes)
 }
