@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 
 	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 	"github.com/spf13/cobra"
@@ -20,16 +19,14 @@ var setCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		locationId := args[0]
 
-		if err := api.VerifyLocationIDAvailability(locationId); err != nil {
-			log.Fatalf("Error: %v\n", err.Error())
-		}
+		locationDetail, err := api.GetLocationDetail(locationId)
+		cobra.CheckErr(err)
 
-		viper.Set("locationId", locationId)
+		viper.Set("location.id", locationDetail.Data.ID)
 
-		if err := viper.WriteConfig(); err != nil {
-			log.Fatalf("Error: %v\n", err.Error())
-		}
+		cobra.CheckErr(viper.WriteConfig())
 
+		fmt.Println("Selected location:", locationDetail.Data.Location)
 		fmt.Println("The selected location has been saved in the config file")
 	},
 }

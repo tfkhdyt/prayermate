@@ -4,8 +4,6 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"log"
-
 	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 	"codeberg.org/tfkhdyt/prayermate/pkg/stdout"
 	"github.com/spf13/cobra"
@@ -20,9 +18,7 @@ var searchCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, name := range args {
 			locations, err := api.SearchLocation(name)
-			if err != nil {
-				log.Fatalf("Error: %v\n", err.Error())
-			}
+			cobra.CheckErr(err)
 
 			stdout.PrintLocationTable(locations)
 		}

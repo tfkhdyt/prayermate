@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 
 	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 	"codeberg.org/tfkhdyt/prayermate/pkg/stdout"
@@ -20,7 +19,7 @@ var showCmd = &cobra.Command{
 	Long:  `Show prayer times for this day`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
-			locationID := viper.GetString("locationId")
+			locationID := viper.GetString("location.id")
 			showSchedule(locationID)
 		} else {
 			for _, locationID := range args {
@@ -46,17 +45,15 @@ func init() {
 
 func showSchedule(locationID string) {
 	prayerTimes, err := api.ShowPrayerTimes(locationID)
-	if err != nil {
-		log.Fatalf("Error: %v\n", err.Error())
-	}
+	cobra.CheckErr(err)
 
 	fmt.Printf(`ID: %s
 Location: %s
 Province: %s
+Date: %s
 Coordinate:
   - Latitude: %s
   - Longitude: %s
-Date: %s
 `, prayerTimes.Data.ID, prayerTimes.Data.Location, prayerTimes.Data.Province, prayerTimes.Data.Coordinate.LatitudeStr, prayerTimes.Data.Coordinate.LongitudeStr, prayerTimes.Data.Schedule.Date)
 
 	stdout.PrintScheduleTable(prayerTimes)

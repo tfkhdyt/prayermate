@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	"codeberg.org/tfkhdyt/prayermate/pkg/alarm"
@@ -23,12 +22,10 @@ var notifyCmd = &cobra.Command{
 	Long:  `Show notifications when it's time to pray`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if locationID == "" {
-			locationID = viper.GetString("locationId")
+			locationID = viper.GetString("location.id")
 		}
 		prayerTimes, err := api.ShowPrayerTimes(locationID)
-		if err != nil {
-			log.Fatalf("Error: %v\n", err.Error())
-		}
+		cobra.CheckErr(err)
 
 		fmt.Println("PrayerMate notify is running...")
 		fmt.Println("Selected location:", prayerTimes.Data.Location)
