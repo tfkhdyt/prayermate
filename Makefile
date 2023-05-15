@@ -21,7 +21,7 @@ FISH_COMPLETION=/usr/share/fish/vendor_completions.d/$(PROGRAM_NAME).fish
 all: build
 
 build:
-	$(GO) build -o $(PROGRAM_NAME) .
+	$(GO) build -buildvcs=false -o $(PROGRAM_NAME) .
 
 install: build
 	install -m 0755 $(PROGRAM_NAME) $(INSTALL_DIR)
