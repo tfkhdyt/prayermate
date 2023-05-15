@@ -25,7 +25,7 @@ build:
 
 install: build
 	install -m 0755 $(PROGRAM_NAME) $(INSTALL_DIR)
-	mkdir -p $(SHARE_DIR)
+	mkdir -p $(SHARE_DIR) $(INSTALL_DIR)
 	cp -R $(ASSETS_DIR) $(SHARE_DIR)
 	$(GO) run . completion bash > $(BASH_COMPLETION)
 	$(GO) run . completion zsh > $(ZSH_COMPLETION)
@@ -41,4 +41,4 @@ uninstall:
 clean:
 	rm -f $(PROGRAM_NAME)
 
-.PHONY: all build install clean
+.PHONY: all build install uninstall clean
