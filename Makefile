@@ -27,9 +27,9 @@ install: build
 	install -m 0755 $(PROGRAM_NAME) $(INSTALL_DIR)
 	mkdir -p $(SHARE_DIR) $(INSTALL_DIR)
 	cp -R $(ASSETS_DIR) $(SHARE_DIR)
-	$(GO) run . completion bash > $(BASH_COMPLETION)
-	$(GO) run . completion zsh > $(ZSH_COMPLETION)
-	$(GO) run . completion fish > $(FISH_COMPLETION)
+	./$(PROGRAM_NAME) completion bash > $(BASH_COMPLETION)
+	./$(PROGRAM_NAME) completion zsh > $(ZSH_COMPLETION)
+	./$(PROGRAM_NAME) completion fish > $(FISH_COMPLETION)
 
 uninstall:
 	rm -f $(INSTALL_DIR)/$(PROGRAM_NAME)
