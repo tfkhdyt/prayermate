@@ -59,7 +59,7 @@ func initConfig() {
 		viper.SetConfigType("toml")   // REQUIRED if the config file does not have the extension in the name
 		viper.AddConfigPath(".")      // optionally look for config in the working directory
 		viper.AddConfigPath(filepath.Join(home, ".config", "prayermate"))
-		viper.SetDefault("locationId", "1301")
+		viper.SetDefault("location.id", "1301")
 	}
 
 	viper.ReadInConfig()
