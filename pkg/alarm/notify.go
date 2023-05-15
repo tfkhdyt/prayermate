@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var shareDir = "/usr/share/prayermate/"
+var shareDir = "/usr/local/share/prayermate/"
 
 func notify(prayerType string, time string) {
 	var icon string
