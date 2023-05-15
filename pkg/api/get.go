@@ -9,25 +9,29 @@ import (
 
 type VerifyDto struct {
 	Status bool `json:"status"`
+	Data   struct {
+		ID       string `json:"id"`
+		Location string `json:"lokasi"`
+	} `json:"data"`
 }
 
-func VerifyLocationIDAvailability(locationId string) error {
+func GetLocationDetail(locationId string) (*VerifyDto, error) {
 	url := "https://api.myquran.com/v1/sholat/kota/id/" + locationId
 
 	body, err := fetch.GET(url)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	var status VerifyDto
 
 	if err := json.Unmarshal(body, &status); err != nil {
-		return err
+		return nil, err
 	}
 
 	if !status.Status {
-		return errors.New("Location id is not found")
+		return nil, errors.New("Location id is not found")
 	}
 
-	return nil
+	return &status, nil
 }
