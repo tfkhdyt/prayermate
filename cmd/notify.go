@@ -33,7 +33,7 @@ var notifyCmd = &cobra.Command{
 		for {
 			alarm.CheckTime(prayerTimes)
 
-			time.Sleep(30 * time.Second)
+			time.Sleep(1 * time.Minute)
 		}
 	},
 }
