@@ -15,8 +15,8 @@ type VerifyDto struct {
 	} `json:"data"`
 }
 
-func GetLocationDetail(locationId string) (*VerifyDto, error) {
-	url := "https://api.myquran.com/v1/sholat/kota/id/" + locationId
+func GetLocationDetail(locationID string) (*VerifyDto, error) {
+	url := "https://api.myquran.com/v1/sholat/kota/id/" + locationID
 
 	body, err := fetch.GET(url)
 	if err != nil {

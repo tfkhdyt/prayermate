@@ -17,8 +17,8 @@ var getCmd = &cobra.Command{
 	Short: "Show currently selected location",
 	Long:  `Show currently selected location`,
 	Run: func(cmd *cobra.Command, args []string) {
-		locationId := viper.GetString("location.id")
-		locationDetail, err := api.GetLocationDetail(locationId)
+		locationID := viper.GetString("location.id")
+		locationDetail, err := api.GetLocationDetail(locationID)
 		cobra.CheckErr(err)
 
 		fmt.Println("ID:", locationDetail.Data.ID)

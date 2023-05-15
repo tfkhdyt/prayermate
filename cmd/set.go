@@ -17,9 +17,9 @@ var setCmd = &cobra.Command{
 	Short: "Set location to config file",
 	Long:  `Set location to config file`,
 	Run: func(cmd *cobra.Command, args []string) {
-		locationId := args[0]
+		locationID := args[0]
 
-		locationDetail, err := api.GetLocationDetail(locationId)
+		locationDetail, err := api.GetLocationDetail(locationID)
 		cobra.CheckErr(err)
 
 		viper.Set("location.id", locationDetail.Data.ID)
