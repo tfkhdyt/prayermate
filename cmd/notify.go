@@ -11,6 +11,7 @@ import (
 	"codeberg.org/tfkhdyt/prayermate/pkg/alarm"
 	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var locationID string
@@ -21,6 +22,9 @@ var notifyCmd = &cobra.Command{
 	Short: "Show notifications when it's time to pray",
 	Long:  `Show notifications when it's time to pray`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if locationID == "" {
+			locationID = viper.GetString("locationId")
+		}
 		prayerTimes, err := api.ShowPrayerTimes(locationID)
 		if err != nil {
 			log.Fatalf("Error: %v\n", err.Error())
@@ -45,7 +49,8 @@ func init() {
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// notifyCmd.PersistentFlags().String("foo", "", "A help for foo")
-	notifyCmd.PersistentFlags().StringVarP(&locationID, "locationId", "l", "1301", "Set location")
+
+	notifyCmd.PersistentFlags().StringVarP(&locationID, "locationId", "l", "", "Set location")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
