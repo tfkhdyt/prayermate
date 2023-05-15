@@ -11,8 +11,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
-
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "prayermate",
@@ -46,34 +44,28 @@ func init() {
 }
 
 func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := os.UserHomeDir()
-		cobra.CheckErr(err)
+	// Find configDir directory.
+	configDir, err := os.UserConfigDir()
+	cobra.CheckErr(err)
 
-		// Search config in home directory with name ".cobra" (without extension).
-		viper.SetConfigName("config") // name of config file (without extension)
-		viper.SetConfigType("toml")   // REQUIRED if the config file does not have the extension in the name
-		viper.AddConfigPath(".")      // optionally look for config in the working directory
-		viper.AddConfigPath(filepath.Join(home, ".config", "prayermate"))
-		viper.SetDefault("location.id", "1301")
-	}
-
+	// Search config in home directory with name ".cobra" (without extension).
+	viper.SetConfigName("config") // name of config file (without extension)
+	viper.SetConfigType("toml")   // REQUIRED if the config file does not have the extension in the name
+	viper.AddConfigPath(".")      // optionally look for config in the working directory
+	viper.AddConfigPath(filepath.Join(configDir, "prayermate"))
+	viper.SetDefault("location.id", "1301")
 	viper.ReadInConfig()
 
-	if _, err := os.Stat("$HOME/.config/prayermate/config.toml"); os.IsNotExist(err) {
+	if _, err := os.Stat(filepath.Join(configDir, "prayermate/config.toml")); os.IsNotExist(err) {
 		createConfig()
 	}
 }
 
 func createConfig() {
 	// Create the directory and file paths.
-	home, err := os.UserHomeDir()
+	configDir, err := os.UserConfigDir()
 	cobra.CheckErr(err)
-	dirPath := filepath.Join(home, ".config", "prayermate")
+	dirPath := filepath.Join(configDir, "prayermate")
 	filePath := filepath.Join(dirPath, "config.toml")
 
 	// Create the directory if it does not exist.
