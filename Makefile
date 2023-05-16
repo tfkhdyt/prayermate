@@ -22,14 +22,17 @@ all: build
 
 build:
 	$(GO) build -buildvcs=false -o $(PROGRAM_NAME) .
+	./$(PROGRAM_NAME) completion bash > $(PROGRAM_NAME).bash
+	./$(PROGRAM_NAME) completion zsh > _$(PROGRAM_NAME).zsh
+	./$(PROGRAM_NAME) completion fish > $(PROGRAM_NAME).fish
 
 install: build
-	install -m 0755 $(PROGRAM_NAME) $(INSTALL_DIR)
 	mkdir -p $(SHARE_DIR) $(INSTALL_DIR)
+	install -Dm755 $(PROGRAM_NAME) $(INSTALL_DIR)
+	install -Dm644 $(PROGRAM_NAME).bash $(BASH_COMPLETION)
+	install -Dm644 _$(PROGRAM_NAME).zsh $(ZSH_COMPLETION)
+	install -Dm644 $(PROGRAM_NAME).fish $(FISH_COMPLETION)
 	cp -R $(ASSETS_DIR) $(SHARE_DIR)
-	./$(PROGRAM_NAME) completion bash > $(BASH_COMPLETION)
-	./$(PROGRAM_NAME) completion zsh > $(ZSH_COMPLETION)
-	./$(PROGRAM_NAME) completion fish > $(FISH_COMPLETION)
 
 uninstall:
 	rm -f $(INSTALL_DIR)/$(PROGRAM_NAME)
@@ -39,6 +42,6 @@ uninstall:
 	rm -f $(FISH_COMPLETION)
 
 clean:
-	rm -f $(PROGRAM_NAME)
+	rm -f $(PROGRAM_NAME) $(PROGRAM_NAME).bash _$(PROGRAM_NAME).zsh $(PROGRAM_NAME).fish
 
 .PHONY: all build install uninstall clean
