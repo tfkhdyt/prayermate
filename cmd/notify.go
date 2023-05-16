@@ -13,7 +13,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-var locationID string
+var (
+	locationID string
+	isSilent   bool
+)
 
 // notifyCmd represents the notify command
 var notifyCmd = &cobra.Command{
@@ -27,8 +30,10 @@ var notifyCmd = &cobra.Command{
 		prayerTimes, err := api.ShowPrayerTimes(locationID)
 		cobra.CheckErr(err)
 
-		fmt.Println("PrayerMate notify is running...")
-		fmt.Println("Selected location:", prayerTimes.Data.Location)
+		if !isSilent {
+			fmt.Println("PrayerMate notify is running...")
+			fmt.Println("Selected location:", prayerTimes.Data.Location)
+		}
 
 		for {
 			alarm.CheckTime(prayerTimes)
@@ -48,6 +53,7 @@ func init() {
 	// notifyCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	notifyCmd.PersistentFlags().StringVarP(&locationID, "locationId", "l", "", "Set location")
+	notifyCmd.PersistentFlags().BoolVarP(&isSilent, "silent", "s", false, "Hide the output")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
