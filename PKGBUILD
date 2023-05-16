@@ -7,14 +7,14 @@ pkgdesc="Command line based Muslim prayer reminder - Indonesia"
 arch=("x86_64")
 url="https://codeberg.org/tfkhdyt/prayermate"
 license=('ISC')
-depends=()
+depends=("glibc")
 makedepends=('go')
 checkdepends=()
 optdepends=()
 provides=("prayermate")
 conflicts=()
 replaces=()
-source=("https://codeberg.org/tfkhdyt/prayermate/archive/v$pkgver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/tfkhdyt/prayermate/archive/v$pkgver.tar.gz")
 md5sums=("SKIP")
 
 build() {
@@ -27,10 +27,11 @@ build() {
 
 package() {
 	cd prayermate
-	install -Dm755 prayermate "$pkgdir"/usr/bin/prayermate
+	install -Dm755 prayermate "$pkgdir/usr/bin/prayermate"
 	install -Dm644 prayermate.bash "$pkgdir/usr/share/bash-completion/completions/prayermate"
 	install -Dm644 _prayermate.zsh "$pkgdir/usr/share/zsh/site-functions/_prayermate"
 	install -Dm644 prayermate.fish "$pkgdir/usr/share/fish/vendor_completions.d/prayermate.fish"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/prayermate-id/LICENSE"
   mkdir -p "$pkgdir/usr/share/prayermate"
 	cp -R assets "$pkgdir/usr/share/prayermate"
 }
