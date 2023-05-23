@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/prayermate --config "${HOME}/.config/prayermate/config.toml" notify 
+ExecStart=/usr/bin/prayermate --config "%h/.config/prayermate/config.toml" notify 
 Restart=on-failure
 RestartSec=5s
 
