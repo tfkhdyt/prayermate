@@ -1,0 +1,11 @@
+[Unit]
+Description=PrayerMate Notify Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/prayermate notify
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target

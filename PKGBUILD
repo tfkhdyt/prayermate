@@ -32,6 +32,7 @@ package() {
 	install -Dm644 _prayermate.zsh "$pkgdir/usr/share/zsh/site-functions/_prayermate"
 	install -Dm644 prayermate.fish "$pkgdir/usr/share/fish/vendor_completions.d/prayermate.fish"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/prayermate-id/LICENSE"
+  install -Dm644 prayermate-notify.service "$pkgdir/usr/lib/systemd/system/prayermate-notify.service"
   mkdir -p "$pkgdir/usr/share/prayermate"
 	cp -R assets "$pkgdir/usr/share/prayermate"
 }
