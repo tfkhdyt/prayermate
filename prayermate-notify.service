@@ -3,7 +3,8 @@ Description=PrayerMate Notify Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/prayermate notify
+Type=simple
+ExecStart=/usr/bin/prayermate --config "${HOME}/.config/prayermate/config.toml" notify 
 Restart=on-failure
 RestartSec=5s
 

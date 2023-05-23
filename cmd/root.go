@@ -11,6 +11,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+var cfgFile string
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "prayermate",
@@ -37,6 +39,7 @@ func init() {
 	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.prayermate.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.config/prayermate/config.toml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -48,11 +51,15 @@ func initConfig() {
 	configDir, err := os.UserConfigDir()
 	cobra.CheckErr(err)
 
-	// Search config in home directory with name ".cobra" (without extension).
-	viper.SetConfigName("config") // name of config file (without extension)
-	viper.SetConfigType("toml")   // REQUIRED if the config file does not have the extension in the name
-	viper.AddConfigPath(".")      // optionally look for config in the working directory
-	viper.AddConfigPath(filepath.Join(configDir, "prayermate"))
+	if cfgFile != "" {
+		viper.SetConfigFile(cfgFile)
+	} else {
+		// Search config in home directory with name ".cobra" (without extension).
+		viper.SetConfigName("config") // name of config file (without extension)
+		viper.SetConfigType("toml")   // REQUIRED if the config file does not have the extension in the name
+		viper.AddConfigPath(".")      // optionally look for config in the working directory
+		viper.AddConfigPath(filepath.Join(configDir, "prayermate"))
+	}
 	viper.SetDefault("location.id", "1301")
 	viper.ReadInConfig()
 
