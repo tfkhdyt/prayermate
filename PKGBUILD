@@ -1,7 +1,7 @@
 # Maintainer: Taufik Hidayat <tfkhdyt@proton.me>
 pkgname=prayermate-id
 pkgver=0.2.3
-pkgrel=1
+pkgrel=2
 epoch=
 pkgdesc="Command line based Muslim prayer reminder - Indonesia"
 arch=("x86_64")
@@ -14,7 +14,7 @@ optdepends=()
 provides=("prayermate")
 conflicts=()
 replaces=()
-source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/tfkhdyt/prayermate/archive/v$pkgver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::https://github.com/tfkhdyt/prayermate/archive/refs/tags/$pkgver.tar.gz")
 md5sums=("SKIP")
 
 build() {
