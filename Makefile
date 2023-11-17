@@ -21,7 +21,7 @@ FISH_COMPLETION=/usr/share/fish/vendor_completions.d/$(PROGRAM_NAME).fish
 all: build
 
 build:
-	$(GO) build -buildvcs=false -o $(PROGRAM_NAME) .
+	$(GO) build -buildvcs=false -ldflags="-w -s" -o $(PROGRAM_NAME) .
 	./$(PROGRAM_NAME) completion bash > $(PROGRAM_NAME).bash
 	./$(PROGRAM_NAME) completion zsh > _$(PROGRAM_NAME).zsh
 	./$(PROGRAM_NAME) completion fish > $(PROGRAM_NAME).fish
