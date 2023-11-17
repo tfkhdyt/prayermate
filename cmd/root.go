@@ -1,9 +1,9 @@
 /*
 Copyright © 2023 Taufik Hidayat <tfkhdyt@proton.me>
-*/
-package cmd
+*/package cmd
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 
@@ -39,7 +39,8 @@ func init() {
 	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.prayermate.yaml)")
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.config/prayermate/config.toml)")
+	rootCmd.PersistentFlags().
+		StringVar(&cfgFile, "config", "", "config file (default is $HOME/.config/prayermate/config.toml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -61,7 +62,9 @@ func initConfig() {
 		viper.AddConfigPath(filepath.Join(configDir, "prayermate"))
 	}
 	viper.SetDefault("location.id", "1301")
-	viper.ReadInConfig()
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatalln("Error: failed to read config")
+	}
 
 	if _, err := os.Stat(filepath.Join(configDir, "prayermate/config.toml")); os.IsNotExist(err) {
 		createConfig()
@@ -77,7 +80,9 @@ func createConfig() {
 
 	// Create the directory if it does not exist.
 	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
-		os.MkdirAll(dirPath, 0755)
+		if err := os.MkdirAll(dirPath, 0755); err != nil {
+			log.Fatalln("Error: failed to make config dir")
+		}
 	}
 
 	// Create the file if it does not exist.
