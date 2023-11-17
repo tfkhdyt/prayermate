@@ -80,7 +80,7 @@ func createConfig() {
 
 	// Create the directory if it does not exist.
 	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
-		if err := os.MkdirAll(dirPath, 0755); err != nil {
+		if err := os.MkdirAll(dirPath, 0o755); err != nil {
 			log.Fatalln("Error: failed to make config dir")
 		}
 	}
