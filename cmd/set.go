@@ -6,9 +6,10 @@ package cmd
 import (
 	"fmt"
 
-	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 )
 
 // setCmd represents the set command
@@ -16,17 +17,17 @@ var setCmd = &cobra.Command{
 	Use:   "set [location id]",
 	Short: "Set location to config file",
 	Long:  `Set location to config file`,
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, args []string) {
 		locationID := args[0]
 
-		locationDetail, err := api.GetLocationDetail(locationID)
+		location, err := api.SearchLocation(locationID)
 		cobra.CheckErr(err)
 
-		viper.Set("location.id", locationDetail.Data.ID)
+		viper.Set("location.id", location[0])
 
 		cobra.CheckErr(viper.WriteConfig())
 
-		fmt.Println("Selected location:", locationDetail.Data.Location)
+		fmt.Println("Selected location:", location[0])
 		fmt.Println("The selected location has been saved in the config file")
 	},
 }

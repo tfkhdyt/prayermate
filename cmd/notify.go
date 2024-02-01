@@ -7,10 +7,11 @@ import (
 	"fmt"
 	"time"
 
-	"codeberg.org/tfkhdyt/prayermate/pkg/alarm"
-	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"codeberg.org/tfkhdyt/prayermate/pkg/alarm"
+	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 )
 
 var (
@@ -23,7 +24,7 @@ var notifyCmd = &cobra.Command{
 	Use:   "notify",
 	Short: "Show notifications when it's time to pray",
 	Long:  `Show notifications when it's time to pray`,
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		if locationID == "" {
 			locationID = viper.GetString("location.id")
 		}
@@ -32,13 +33,13 @@ var notifyCmd = &cobra.Command{
 
 		if !isSilent {
 			fmt.Println("PrayerMate notify is running...")
-			fmt.Println("Selected location:", prayerTimes.Data.Location)
+			fmt.Println("Selected location:", locationID)
 		}
 
 		for {
 			alarm.CheckTime(prayerTimes)
 
-			time.Sleep(1 * time.Minute)
+			time.Sleep(30 * time.Second)
 		}
 	},
 }

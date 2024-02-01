@@ -6,7 +6,6 @@ package cmd
 import (
 	"fmt"
 
-	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -16,13 +15,10 @@ var currentCmd = &cobra.Command{
 	Use:   "current",
 	Short: "Show currently selected location",
 	Long:  `Show currently selected location`,
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		locationID := viper.GetString("location.id")
-		locationDetail, err := api.GetLocationDetail(locationID)
-		cobra.CheckErr(err)
 
-		fmt.Println("ID:", locationDetail.Data.ID)
-		fmt.Println("Location:", locationDetail.Data.Location)
+		fmt.Println("Location:", locationID)
 	},
 }
 

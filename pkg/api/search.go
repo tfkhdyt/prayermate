@@ -1,12 +1,9 @@
 package api
 
 import (
-	"encoding/json"
 	"errors"
-	"fmt"
 
 	"codeberg.org/tfkhdyt/prayermate/entity"
-	"codeberg.org/tfkhdyt/prayermate/pkg/fetch"
 )
 
 type SearchLocationDto struct {
@@ -14,22 +11,17 @@ type SearchLocationDto struct {
 	Data   []entity.Location `json:"data"`
 }
 
-func SearchLocation(name string) ([]entity.Location, error) {
-	url := fmt.Sprintf("https://api.myquran.com/v1/sholat/kota/cari/%s", name)
-
-	body, err := fetch.GET(url)
+func SearchLocation(name string) ([]string, error) {
+	locations, err := ListLocations()
 	if err != nil {
 		return nil, err
 	}
 
-	var result SearchLocationDto
-	if err := json.Unmarshal(body, &result); err != nil {
-		return nil, err
+	for _, location := range locations {
+		if location == name {
+			return []string{location}, nil
+		}
 	}
 
-	if !result.Status {
-		return nil, errors.New("Location is not found")
-	}
-
-	return result.Data, nil
+	return nil, errors.New("location is not found")
 }

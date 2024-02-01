@@ -61,7 +61,7 @@ func initConfig() {
 		viper.AddConfigPath(".")      // optionally look for config in the working directory
 		viper.AddConfigPath(filepath.Join(configDir, "prayermate"))
 	}
-	viper.SetDefault("location.id", "1301")
+	viper.SetDefault("location.id", "bandung")
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalln("Error: failed to read config")
 	}

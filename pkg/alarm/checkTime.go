@@ -11,14 +11,14 @@ import (
 func CheckTime(prayerTimes *entity.PrayerTimes) {
 	day := time.Now().Weekday().String()
 
-	parseTimeAndNotify(prayerTimes.Data.Schedule.Subuh, "Subuh")
-	parseTimeAndNotify(prayerTimes.Data.Schedule.Ashar, "Ashar")
-	parseTimeAndNotify(prayerTimes.Data.Schedule.Magrib, "Magrib")
-	parseTimeAndNotify(prayerTimes.Data.Schedule.Isya, "Isya")
+	parseTimeAndNotify(prayerTimes.Subuh, "Subuh")
+	parseTimeAndNotify(prayerTimes.Ashar, "Ashar")
+	parseTimeAndNotify(prayerTimes.Magrib, "Magrib")
+	parseTimeAndNotify(prayerTimes.Isya, "Isya")
 	if day == "Friday" {
-		parseTimeAndNotify(prayerTimes.Data.Schedule.Dzuhur, "Friday")
+		parseTimeAndNotify(prayerTimes.Dzuhur, "Friday")
 	} else {
-		parseTimeAndNotify(prayerTimes.Data.Schedule.Dzuhur, "Dzuhur")
+		parseTimeAndNotify(prayerTimes.Dzuhur, "Dzuhur")
 	}
 }
 

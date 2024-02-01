@@ -4,16 +4,17 @@ import (
 	"fmt"
 	"os"
 
-	"codeberg.org/tfkhdyt/prayermate/entity"
 	"github.com/olekukonko/tablewriter"
+
+	"codeberg.org/tfkhdyt/prayermate/entity"
 )
 
-func PrintLocationTable(locations []entity.Location) {
+func PrintLocationTable(locations []string) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"ID", "Location"})
+	table.SetHeader([]string{"Location"})
 
 	for _, location := range locations {
-		table.Append([]string{location.ID, location.Location})
+		table.Append([]string{location})
 	}
 	table.Render() // Send output
 }
@@ -21,14 +22,14 @@ func PrintLocationTable(locations []entity.Location) {
 func PrintScheduleTable(prayerTimes *entity.PrayerTimes) {
 	table := tablewriter.NewWriter(os.Stdout)
 
-	table.Append([]string{"Imsak", prayerTimes.Data.Schedule.Imsak})
-	table.Append([]string{"Subuh", prayerTimes.Data.Schedule.Subuh})
-	table.Append([]string{"Terbit", prayerTimes.Data.Schedule.Terbit})
-	table.Append([]string{"Dhuha", prayerTimes.Data.Schedule.Dhuha})
-	table.Append([]string{"Dzuhur", prayerTimes.Data.Schedule.Dzuhur})
-	table.Append([]string{"Ashar", prayerTimes.Data.Schedule.Ashar})
-	table.Append([]string{"Magrib", prayerTimes.Data.Schedule.Magrib})
-	table.Append([]string{"Isya", prayerTimes.Data.Schedule.Isya})
+	table.Append([]string{"Imsak", prayerTimes.Imsak})
+	table.Append([]string{"Subuh", prayerTimes.Subuh})
+	table.Append([]string{"Terbit", prayerTimes.Terbit})
+	table.Append([]string{"Dhuha", prayerTimes.Dhuha})
+	table.Append([]string{"Dzuhur", prayerTimes.Dzuhur})
+	table.Append([]string{"Ashar", prayerTimes.Ashar})
+	table.Append([]string{"Magrib", prayerTimes.Magrib})
+	table.Append([]string{"Isya", prayerTimes.Isya})
 
 	table.Render() // Send output
 	fmt.Println()

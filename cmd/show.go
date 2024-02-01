@@ -6,10 +6,11 @@ package cmd
 import (
 	"fmt"
 
-	"codeberg.org/tfkhdyt/prayermate/pkg/api"
-	"codeberg.org/tfkhdyt/prayermate/pkg/stdout"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"codeberg.org/tfkhdyt/prayermate/pkg/api"
+	"codeberg.org/tfkhdyt/prayermate/pkg/stdout"
 )
 
 // showCmd represents the show command
@@ -17,7 +18,7 @@ var showCmd = &cobra.Command{
 	Use:   "show [location id...]",
 	Short: "Show prayer times for this day",
 	Long:  `Show prayer times for this day`,
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, args []string) {
 		if len(args) == 0 {
 			locationID := viper.GetString("location.id")
 			showSchedule(locationID)
@@ -47,14 +48,9 @@ func showSchedule(locationID string) {
 	prayerTimes, err := api.ShowPrayerTimes(locationID)
 	cobra.CheckErr(err)
 
-	fmt.Printf(`ID: %s
-Location: %s
-Province: %s
+	fmt.Printf(`Location: %s
 Date: %s
-Coordinate:
-  - Latitude: %s
-  - Longitude: %s
-`, prayerTimes.Data.ID, prayerTimes.Data.Location, prayerTimes.Data.Province, prayerTimes.Data.Schedule.Date, prayerTimes.Data.Coordinate.LatitudeStr, prayerTimes.Data.Coordinate.LongitudeStr)
+`, locationID, prayerTimes.Date)
 
 	stdout.PrintScheduleTable(prayerTimes)
 }

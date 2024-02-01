@@ -30,7 +30,7 @@ func GetLocationDetail(locationID string) (*VerifyDto, error) {
 	}
 
 	if !status.Status {
-		return nil, errors.New("Location id is not found")
+		return nil, errors.New("location id is not found")
 	}
 
 	return &status, nil

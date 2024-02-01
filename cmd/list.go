@@ -4,9 +4,10 @@ Copyright © 2023 Taufik Hidayat <tfkhdyt@proton.me>
 package cmd
 
 import (
+	"github.com/spf13/cobra"
+
 	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 	"codeberg.org/tfkhdyt/prayermate/pkg/stdout"
-	"github.com/spf13/cobra"
 )
 
 // listCmd represents the list command
@@ -14,7 +15,7 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all available locations",
 	Long:  "List all available locations",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		locations, err := api.ListLocations()
 		cobra.CheckErr(err)
 
