@@ -18,7 +18,7 @@ var rootCmd = &cobra.Command{
 	Use:     "prayermate",
 	Short:   "Command line based Muslim prayer reminder",
 	Long:    `PrayerMate is a CLI-based application to remind users of prayer times.`,
-	Version: "1.1.1",
+	Version: "1.1.2",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },

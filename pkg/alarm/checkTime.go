@@ -26,9 +26,7 @@ func parseTimeAndNotify(timeStr string, prayerType string) {
 
 	var hour int
 	var minute int
-
-	fmt.Println("Hour:", hour)
-	fmt.Println("Minute:", minute)
+	fmt.Sscanf(timeStr, "%02d:%02d", &hour, &minute)
 
 	if hourNow == hour && minuteNow == minute {
 		notify(prayerType, timeStr)
