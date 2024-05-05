@@ -1,32 +1,31 @@
 # Maintainer: Taufik Hidayat <tfkhdyt@proton.me>
-pkgname=prayermate-id
+pkgname=prayermate-id-bin
 pkgver=1.1.0
 pkgrel=1
 epoch=
 pkgdesc="Command line based Muslim prayer reminder - Indonesia"
-arch=("x86_64")
+arch=("x86_64" "aarch64")
 url="https://github.com/tfkhdyt/prayermate"
 license=('ISC')
 depends=()
-makedepends=('go')
 checkdepends=()
 optdepends=()
 provides=("prayermate")
-conflicts=()
+conflicts=("prayermate-id")
 replaces=()
-source=("$pkgname-$pkgver.tar.gz::https://github.com/tfkhdyt/prayermate/archive/refs/tags/v$pkgver.tar.gz")
-md5sums=("SKIP")
+source_x86_64=("${pkgname}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/prayermate-v${pkgver}-linux-amd64.tar.gz")
+sha256sums_x86_64=('d5e28da23986f8d7be87e3f1919975d2b9c114a37d0c7d23fc15f2584dd1e516')
+
+source_aarch64=("${pkgname}-v${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/prayermate-v${pkgver}-linux-arm64.tar.gz")
+sha256sums_aarch64=('294e53e770af442bc5a67b59f7950f9a2945e1f20debfca9c3a9d9f3d24e1c55')
 
 build() {
-	cd "prayermate-$pkgver"
-	go build -ldflags="-w -s" -o prayermate .
 	./prayermate completion bash >prayermate.bash
 	./prayermate completion zsh >_prayermate.zsh
 	./prayermate completion fish >prayermate.fish
 }
 
 package() {
-	cd "prayermate-$pkgver"
 	install -Dm755 prayermate "$pkgdir/usr/bin/prayermate"
 	install -Dm644 prayermate.bash "$pkgdir/usr/share/bash-completion/completions/prayermate"
 	install -Dm644 _prayermate.zsh "$pkgdir/usr/share/zsh/site-functions/_prayermate"
