@@ -5,6 +5,7 @@ PrayerMate is a CLI-based application to remind users of prayer times.
 ## Features
 
 - Display a list of available locations
+- Search for locations by name
 - Set the default location
 - Display the currently selected location
 - Display today's prayer schedule
@@ -38,6 +39,12 @@ sudo make install
 
 ```bash
 prayermate location list
+```
+
+### Search for location by name
+
+```bash
+prayermate location search [location name...]
 ```
 
 ### Set default location
