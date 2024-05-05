@@ -15,9 +15,10 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "prayermate",
-	Short: "Command line based Muslim prayer reminder",
-	Long:  `PrayerMate is a CLI-based application to remind users of prayer times.`,
+	Use:     "prayermate",
+	Short:   "Command line based Muslim prayer reminder",
+	Long:    `PrayerMate is a CLI-based application to remind users of prayer times.`,
+	Version: "1.1.1",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },

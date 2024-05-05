@@ -31,4 +31,4 @@ jobs:
           executable_compression: upx
           md5sum: FALSE
           sha256sum: TRUE
-
+          extra_files: LICENSE prayermate-notify.service assets
