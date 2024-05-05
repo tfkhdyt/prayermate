@@ -20,14 +20,14 @@ var setCmd = &cobra.Command{
 	Run: func(_ *cobra.Command, args []string) {
 		locationID := args[0]
 
-		location, err := api.SearchLocation(locationID)
+		location, err := api.SearchLocationByID(locationID)
 		cobra.CheckErr(err)
 
-		viper.Set("location.id", location[0])
+		viper.Set("location.id", location.ID)
 
 		cobra.CheckErr(viper.WriteConfig())
 
-		fmt.Println("Selected location:", location[0])
+		fmt.Println("Selected location:", location.Name)
 		fmt.Println("The selected location has been saved in the config file")
 	},
 }

@@ -3,22 +3,25 @@ package api
 import (
 	"encoding/json"
 
+	"codeberg.org/tfkhdyt/prayermate/entity"
 	"codeberg.org/tfkhdyt/prayermate/pkg/fetch"
 )
 
-func ListLocations() ([]string, error) {
-	url := "https://raw.githubusercontent.com/lakuapik/jadwalsholatorg/master/kota.json"
+func ListLocations() ([]entity.Location, error) {
+	url := "https://api.myquran.com/v2/sholat/kota/semua"
 
 	body, err := fetch.GET(url)
 	if err != nil {
 		return nil, err
 	}
 
-	var locations []string
+	var data struct {
+		Locations []entity.Location `json:"data"`
+	}
 
-	if err := json.Unmarshal(body, &locations); err != nil {
+	if err := json.Unmarshal(body, &data); err != nil {
 		return nil, err
 	}
 
-	return locations, nil
+	return data.Locations, nil
 }

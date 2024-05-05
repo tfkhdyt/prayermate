@@ -8,6 +8,8 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"codeberg.org/tfkhdyt/prayermate/pkg/api"
 )
 
 // currentCmd represents the current command
@@ -18,7 +20,11 @@ var currentCmd = &cobra.Command{
 	Run: func(_ *cobra.Command, _ []string) {
 		locationID := viper.GetString("location.id")
 
-		fmt.Println("Location:", locationID)
+		location, err := api.SearchLocationByID(locationID)
+		cobra.CheckErr(err)
+
+		fmt.Println("ID:", location.ID)
+		fmt.Println("Name:", location.Name)
 	},
 }
 

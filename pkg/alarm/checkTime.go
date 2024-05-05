@@ -1,8 +1,7 @@
 package alarm
 
 import (
-	"strconv"
-	"strings"
+	"fmt"
 	"time"
 
 	"codeberg.org/tfkhdyt/prayermate/entity"
@@ -25,9 +24,11 @@ func CheckTime(prayerTimes *entity.PrayerTimes) {
 func parseTimeAndNotify(timeStr string, prayerType string) {
 	hourNow, minuteNow := time.Now().Hour(), time.Now().Minute()
 
-	splittedTime := strings.Split(timeStr, ":")
-	hour, _ := strconv.Atoi(splittedTime[0])
-	minute, _ := strconv.Atoi(splittedTime[1])
+	var hour int
+	var minute int
+
+	fmt.Println("Hour:", hour)
+	fmt.Println("Minute:", minute)
 
 	if hourNow == hour && minuteNow == minute {
 		notify(prayerType, timeStr)

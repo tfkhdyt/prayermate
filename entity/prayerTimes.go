@@ -2,12 +2,12 @@ package entity
 
 type PrayerTimes struct {
 	Date   string `json:"tanggal"`
-	Imsak  string `json:"imsyak"`
-	Subuh  string `json:"shubuh"`
+	Imsak  string `json:"imsak"`
+	Subuh  string `json:"subuh"`
 	Terbit string `json:"terbit"`
 	Dhuha  string `json:"dhuha"`
 	Dzuhur string `json:"dzuhur"`
-	Ashar  string `json:"ashr"`
-	Magrib string `json:"magrib"`
+	Ashar  string `json:"ashar"`
+	Magrib string `json:"maghrib"`
 	Isya   string `json:"isya"`
 }

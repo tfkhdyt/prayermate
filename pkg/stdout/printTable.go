@@ -9,12 +9,12 @@ import (
 	"codeberg.org/tfkhdyt/prayermate/entity"
 )
 
-func PrintLocationTable(locations []string) {
+func PrintLocationTable(locations []entity.Location) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Location"})
+	table.SetHeader([]string{"ID", "Name"})
 
 	for _, location := range locations {
-		table.Append([]string{location})
+		table.Append([]string{location.ID, location.Name})
 	}
 	table.Render() // Send output
 }
